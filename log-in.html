@@ -1,0 +1,33 @@
+<div data-ng-controller="AccountCtrl">
+
+  <h2 class="text-center sign-in-header">Login to your account</h2>
+  <form name="myForm" data-ng-submit="login()">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-8 col-md-offset-3 col-sm-offset-3 col-xs-offset-2">
+        <div class="form-group" >
+        <label for="username">User Name:</label>
+        <input type="text" name="username" class="form-control" id="username" placeholder="Enter your user name" data-ng-model="username" data-ng-required="true" />
+
+        </div>
+
+          <div class="form-group" >
+            <label for="password">Password:</label>
+            <input type="password" name ="password" class="form-control" id="password" placeholder="Enter your password" data-ng-model="password" data-ng-required="true"/>
+          </div>
+          {{onscreenMessage}}
+        <br>
+        <div class="text-center">
+              <button class="btn btn-primary" type="submit">Log in</button>
+              <a href="#!/sign-up" class="btn btn-success">Create account</a>
+        </div>
+
+      </div>
+
+    </div>
+  </form>
+  <modal class="message-log-in" visible="showModal">
+  </modal>
+
+
+</div>
+

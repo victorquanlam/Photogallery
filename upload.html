@@ -1,0 +1,73 @@
+<div data-ng-controller="MainCtrl">
+  <!-- Page title -->
+  <div class="row uploadBar">
+    <h2 class="text-center">Photo Upload</h2>
+    <!-- Progress bar -->
+    <div class="col-md-12">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="uploadbar">{{percentage}}% Complete</div>
+      </div>
+      <!-- Button to add more file and go to Gallery -->
+      <div class="text-center">
+        <button data-ngf-select="selectFile($files)" accept="image/jpeg" class="btn btn-success">Choose File</button>
+        <a href="#!/gallery" class="btn btn-success">Go to Gallery</a>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-10 col-xs-offset-1">
+          <h3>Files:</h3>
+          <div data-ng-show="displayMsg">
+            <p class="col-lg-10 col-md-10 text-center">{{msg}}</p>
+          </div>
+          <!-- Display upload image -->
+          <div class="row"  data-ng-repeat="file in fileList">
+            <div class="col-md-3">
+              <img data-ngf-thumbnail="file ||'/thumb.jpg'" width="100%"/>
+            </div>
+          <!-- Image name -->
+            <div class="col-md-6">
+              <p>{{file.name}}</p>
+            </div>
+          <!--Image size -->
+            <div class="col-md-3">
+              <p>{{file.size/1000|number:2}}KB</p>
+            </div>
+          <!-- Add image information-->
+            <div class="col-md-12">
+              <div class="row photo-id" >
+                <div class="col-md-9">
+
+                    <div class="row">
+                      <label for="caption">Caption</label>
+                      <input type="text" name="caption" class="form-control" placeholder="Add Caption Here..." data-ng-model="tags.caption" size="10"/>
+                    </div>
+                    <div class="row">
+                      <label for="tags">Tag</label>
+                      <input type="text" name="tags" class="form-control" placeholder="Add Tag Here..." data-ng-model="tags.tag" size="10"/>
+                    </div>
+                  <div class="row">
+                      <label for="key">Keywords</label>
+                      <input type="text" name="key" class="form-control" placeholder="Add Keywords Here..." data-ng-model="tags.key" size="10"/>
+                    </div>
+                    <div class="row">
+                      <label for="tags">Date</label>
+                      <input type="date" class="form-control" value="{{today}}" data-ng-model="tags.date"/>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12 text-center">
+                  <!-- button to upload image-->
+                  <button class="btn btn-sm btn-success" data-ng-click="uploadFile(file)">Upload</button>
+                  <!-- button to remove all the input  -->
+                  <button class="btn btn-sm btn-danger" data-ng-click="removeFile(file)">Remove</button>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+  </div>
+</div>

@@ -1,0 +1,170 @@
+
+
+body{
+  font-family:  Impact, Charcoal, sans-serif;
+  color: white;
+
+}
+
+
+#body-content{
+  margin-bottom: 150px;
+
+}
+.uploadBar {
+  margin-top: 150px;
+
+}
+
+label {
+  text-align: right;
+  clear: both;
+  float:left;
+
+}
+
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
+.bodyModel{
+  margin-top: 20px;
+}
+
+.navbar.navbar-nav.pull-right {
+  float: left !important;
+}
+.nav.navbar-toggle {
+  float: right;
+  margin-right: 0;
+
+}
+
+.input-group-btn .btn-group {
+  display: flex !important;
+}
+.bottom-footer
+{
+  border-top:1px solid #9D9D9D;
+  color:#9D9D9D;
+
+}
+#bottom-theme{
+  text-align:center;
+    }
+.footer-nav{
+  text-align: right;
+  color:#9D9D9D;
+
+}
+.footer-nav li{
+  display: inline;
+
+}
+.footer-nav li:not(:first-child):before{
+  content:'|';
+  padding: 0px 10px;
+
+}
+.footer{
+  width:100%;
+  position:fixed;
+  bottom:0;
+  background-color: #222222;
+  color:#9D9D9D;
+
+
+}
+
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+  background: black;
+  overflow: hidden;
+  opacity:0.95;
+}
+
+.fullscreen-bg__video {
+    display:flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.gallery-row{
+  margin: 20px 0px 40px 0px;
+  color:black;
+}
+.list-group{
+  background-color: :white;
+}
+
+
+.addButton{
+  position: fixed;
+  z-index: 100;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+.photo-id{
+  margin-top:10px;
+}
+.sign-in-header{
+  margin-top: 100px;
+  margin-bottom::50px;
+}
+.sign-in-form{
+  padding:40px;
+  background-color: white;
+  color:black;
+  font-family:   Charcoal, sans-serif;
+}
+
+.change-form{
+  padding:40px;
+  background-color: white;
+  color:black;
+  font-family: Charcoal, sans-serif;
+}
+
+.message-log-in{
+  margin-top:100px;
+  color: black;
+
+}
+.message-color{
+  color: black;
+}
+.message-dialog{
+
+  color: black;
+  padding:50px;
+}
+.glyphicon.glyphicon-heart {
+    font-size: 25px;
+}
+.glyphicon.glyphicon-heart-empty {
+    font-size: 25px;
+}
+.slide-up{
+  padding-right:20px;
+}
+
+.alert-message{
+  color:red;
+}

@@ -1,0 +1,117 @@
+
+
+<div data-ng-controller="AccountCtrl">
+  <h2 class="text-center sign-in-header">Create new account</h2>
+    <form name="myForm" data-ng-submit="submit()" class="sign-in-form" >
+      <div class="form-inline">
+        <div class="form-group" >
+          <label for="firstName">First name:</label>
+          <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter your first name" data-ng-model="user.firstname" data-ng-required="true" data-ng-pattern="/^(\D)+$/" />
+
+        </div>
+
+        <div class="form-group" >
+          <label for="secondName">Second name:</label>
+          <input type="text" name ="secondName" class="form-control" id="secondName" placeholder="Enter second name" data-ng-model="user.secondname" data-ng-required="true" data-ng-pattern="/^(\D)+$/"/>
+        </div>
+        <div class="message" data-ng-show="(myForm.firstName.$touched && myForm.firstName.$invalid) || (myForm.secondName.$touched && myForm.secondName.$invalid)">
+          <span class="message" data-ng-show="myForm.firstName.$touched && myForm.firstName.$invalid">First Name
+          </span>
+          <span class="message" data-ng-show="myForm.firstName.$touched && myForm.firstName.$invalid && myForm.secondName.$touched && myForm.secondName.$invalid">and</span>
+          <span class="message" data-ng-show="myForm.secondName.$touched && myForm.secondName.$invalid">Second Name
+          </span>
+          <span> is letter only and required</span>
+        </div>
+      </div>
+      <br>
+      <div class="form-group" >
+        <label for="userName">User name:</label>
+        <input type="text" name="username" class="form-control" data-ng-minlength="3" id="userName" placeholder="Enter user name" data-ng-model="user.username" data-ng-required="true">
+         <div class="message" data-ng-show="myForm.username.$touched && myForm.username.$invalid && !myForm.username.$error.minlength">User Name is required
+        </div>
+      <div class="message" data-ng-show="myForm.username.$error.minlength" >User Name is too short.</div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter password" data-ng-model="user.pwd" data-ng-required="true" data-ng-pattern="/^(?=.*[A-Za-z])(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]/" data-ng-minlength="8" >
+        <div class="message" data-ng-show="myForm.password.$error.minlength ||(myForm.password.$touched && myForm.password.$invalid )" >Password must contain at least 1 special character, minimum 8 characters and required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmpwd">Confirm Password:</label>
+        <input type="password" name="confirmPassword" class="form-control" id="confirmpwd" data-ng-model="user.confirmpwd" placeholder="Enter password again" data-ng-required="true">
+        <div class="message" data-ng-show="myForm.confirmPassword.$touched && user.pwd!=user.confirmpwd " >
+          Confirm password does not match with password.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" data-ng-model="user.email" data-ng-required="true">
+        <div class="message" data-ng-show="myForm.email.$touched && myForm.email.$invalid">
+        Email is not in the correct format.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Street address:</label>
+        <input type="text" name="address" class="form-control" id="address" placeholder="Enter address here" data-ng-model="user.address" data-ng-maxlength="40" >
+         <div class="message" data-ng-show="myForm.address.$error.maxlength" >Street cannot be longer than 40 characters .</div>
+      </div>
+
+
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="suburb">Suburb:</label>
+          <input type="text" name="suburb" class="form-control" id="suburb" placeholder="Enter Surbub" data-ng-model="user.suburb" data-ng-maxlength="20">
+        </div>
+
+        <div class="form-group">
+          <label for="postcode">Postcode:</label>
+          <input type="text" name="postcode" class="form-control" id="postcode" data-ng-model="user.postcode" placeholder="Enter postcode" data-ng-pattern="/^[0-9]{4}/" data-ng-maxlength="4">
+          <div class="message" data-ng-show="myForm.suburb.$error.maxlength" >Suburb cannot be longer than 20 characters .
+          </div>
+          <div class="message" data-ng-show="myForm.postcode.$invalid && myForm.postcode.$touched" >Postcode must be 4 numbers .
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="phone">Phone number:</label>
+        <input type="number" name="phone" class="form-control" id="phone" placeholder="Enter phone number" data-ng-model="user.phone" data-ng-pattern="/^[0][4][0-9]{8}$/">
+        <div class="message" data-ng-show="myForm.phone.$invalid && myForm.phone.$touched" >Phone number in Autralia must start with 04 numbers and has 10 digits.
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <br>
+
+      <button type="submit" class="btn btn-primary" data-ng-disabled="myForm.$invalid">Submit</button>
+       <button data-ng-click ="toggle()" class="btn btn-primary">Terms and Condition</button>
+      <p data-ng-show="myVar">
+        You can create an account to share our image with friends
+
+      </p>
+
+
+    </form>
+    <modal class="message" visible="showModal">
+    </modal>
+    <br>
+
+
+
+
+
+
+
+
+</div>

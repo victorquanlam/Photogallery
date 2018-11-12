@@ -1,0 +1,123 @@
+
+
+<div data-ng-controller="AccountCtrl" >
+  <h2 class="text-center sign-in-header">Account Settings</h2>
+  <!-- form is used to update the information of the images-->
+    <form name="myForm"  data-ng-repeat="id in ids | filter : {'userName' : username}:true"  data-ng-submit="change()" class="sign-in-form" >
+      <div class="form-inline">
+        <div class="form-group" >
+          <label for="firstName">First name:</label>
+          <span data-ng-hide="fixInf">{{id.firstName}}</span>
+          <input data-ng-show="fixInf" type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter your first name" data-ng-model="update.firstname"  data-ng-pattern="/^(\D)+$/" />
+
+        </div>
+        <br data-ng-hide="fixInf"><br data-ng-hide="fixInf">
+        <div class="form-group" >
+          <label for="secondName">Second name:</label>
+          <span data-ng-hide="fixInf">{{id.secondName}}</span>
+          <input data-ng-show="fixInf" type="text" name ="secondName" class="form-control" id="secondName" placeholder="Enter second name" data-ng-model="update.secondname"  data-ng-pattern="/^(\D)+$/"/>
+        </div>
+
+      </div>
+      <br data-ng-show="fixInf"><br data-ng-hide="fixInf">
+      <div class="form-group" >
+        <label for="userName">User name:</label>
+        <span data-ng-hide="fixInf">{{id.userName}}</span>
+        <input data-ng-show="fixInf" type="text" name="username" class="form-control" data-ng-minlength="3" id="userName" placeholder="Enter user name" data-ng-model="update.username" >
+
+      <div class="alert-message" data-ng-show="myForm.username.$error.minlength" >User Name is too short.</div>
+      </div>
+
+
+      <div data-ng-show="fixInf" class="form-group">
+        <label for="pwd">New Password:</label>
+
+        <input  type="password" name="password" class="form-control" id="pwd" placeholder="Enter password" data-ng-model="update.pwd"  data-ng-pattern="/^(?=.*[A-Za-z])(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]/" data-ng-minlength="8" >
+        <div class="alert-message" data-ng-show="myForm.password.$error.minlength ||(myForm.password.$touched && myForm.password.$invalid )" >Password must contain at least 1 special character, minimum 8 characters and </div>
+      </div>
+
+      <div data-ng-show="fixInf" class="form-group" data-ng-show="fixInf">
+        <label for="confirmpwd">Confirm Password:</label>
+
+        <input  type="password" name="confirmPassword" class="form-control" id="confirmpwd" data-ng-model="update.confirmpwd" placeholder="Enter password again" >
+        <div class="alert-message" data-ng-show="myForm.confirmPassword!=undefined && update.pwd!=update.confirmpwd " >
+          Confirm password does not match with password.
+        </div>
+      </div>
+
+
+      <div class="form-group" >
+        <label for="email">Email:</label>
+         <span data-ng-hide="fixInf">{{id.email}}</span>
+        <input data-ng-show="fixInf" type="email" name="email" class="form-control" id="email" placeholder="Enter your email" data-ng-model="update.email" >
+        <div class="alert-message" data-ng-show="myForm.email.$touched && myForm.email.$invalid">
+        Email is not in the correct format.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Street address:</label>
+         <span data-ng-hide="fixInf">{{id.address}}</span>
+        <input data-ng-show="fixInf" type="text" name="address" class="form-control" id="address" placeholder="Enter address here" data-ng-model="update.address" data-ng-maxlength="40" >
+         <div class="alert-message" data-ng-show="myForm.address.$error.maxlength" >Street cannot be longer than 40 characters .</div>
+      </div>
+
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="suburb">Suburb:</label>
+           <span data-ng-hide="fixInf">{{id.suburb}}</span>
+          <input data-ng-show="fixInf" type="text" name="suburb" class="form-control" id="suburb" placeholder="Enter Surbub" data-ng-model="update.suburb" data-ng-maxlength="20">
+        </div>
+
+        <div class="form-group">
+          <label for="postcode">Postcode:</label>
+          <span data-ng-hide="fixInf">{{id.postcode}}</span>
+          <input data-ng-show="fixInf" type="text" name="postcode" class="form-control" id="postcode" data-ng-model="update.postcode" placeholder="Enter postcode" data-ng-pattern="/^[0-9]{4}/" data-ng-maxlength="4">
+          <div class="alert-message" data-ng-show="myForm.suburb.$error.maxlength" >Suburb cannot be longer than 20 characters .
+          </div>
+          <div class="alert-message" data-ng-show="myForm.postcode.$invalid && myForm.postcode.$touched" >Postcode must be 4 numbers .
+          </div>
+        </div>
+      </div>
+      <br >
+      <div class="form-group">
+        <label for="phone">Phone number:</label>
+        <span data-ng-hide="fixInf">{{id.phonenumber}}</span>
+        <input data-ng-show="fixInf" type="number" name="phone" class="form-control" id="phone" placeholder="Enter phone number" data-ng-model="update.phone" data-ng-pattern="/^[0][4][0-9]{8}$/">
+        <div class="alert-message" data-ng-show="myForm.phone.$invalid && myForm.phone.$touched" >Phone number in Autralia must start with 04 numbers and has 10 digits.
+        </div>
+      </div>
+
+
+
+
+      <div data-ng-show="fixInf" class="form-group">
+        <label for="oldpwd">Confirm your old password:</label>
+
+        <input  type="password" name="oldpwd" class="form-control" id="oldpwd" data-ng-model="update.oldpwd" placeholder="Enter password" data-ng-minlength="8" data-ng-required="true">
+        <div class="alert-message" data-ng-show="id.password!=update.oldpwd " >
+          Please insert correct old password before submit your changes.
+        </div>
+
+      </div>
+
+
+      <br>
+      <button type="button" class="btn btn-warning" data-ng-hide="fixInf" data-ng-click="fixInf=true">Change Informations</button>
+      <button type="button" class="btn btn-primary" data-ng-show="fixInf" data-ng-click="fixInf=false">Cancel</button>
+      <button type="submit" class="btn btn-primary" data-ng-disabled="myForm.$invalid" data-ng-show="fixInf">Submit</button>
+
+
+    </form>
+    <modal class="alert-message" visible="showModal">
+    </modal>
+    <br>
+
+
+
+
+
+
+
+
+</div>

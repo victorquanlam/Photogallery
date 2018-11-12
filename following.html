@@ -1,0 +1,144 @@
+<!-- set pageOption to sort image -->
+<div class="cointaner-fuild uploadBar" data-ng-controller="GalleryCtrl" data-ng-init="pageOption='following'">
+
+  <!-- Page title -->
+  <div class="text-center">
+    <h2 > This is {{userID}} gallery</h2>
+    <button class="btn btn-primary" data-ng-click="follow()" data-ng-show="status && !check">Follow</button>
+    <button class="btn btn-primary" data-ng-click="unfollow()" data-ng-show="status && check">UnFollow</button>
+
+  </div>
+
+  <!-- SearchBar -->
+  <div class="row" style="margin: 20px 0px 40px 0px">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10  col-sm-offset-1 col-xs-offset-1">
+
+        <div class="input-group " id="adv-search">
+          <!-- use total function to search for value  -->
+                  <input type="text" data-ng-show="option=='0'" class="form-control" placeholder="Search for images with caption, name, tags and keyword" data-ng-keyup="total(search)" data-ng-model="search"/>
+                  <input type="text" data-ng-show="option=='1'" class="form-control" placeholder="Search for images by Tags" data-ng-keyup="total(searchTags)" data-ng-model="searchTags"/>
+                  <input type="text" data-ng-show="option=='2'" class="form-control" placeholder="Search for images by Key Words" data-ng-keyup="total(searchKey)" data-ng-model="searchKey"/>
+                  <input type="text" data-ng-show="option=='3'" class="form-control" placeholder="Search for images by Caption" data-ng-keyup="total(searchCaption)" data-ng-model="searchCaption" />
+                  <ul class="list-group" data-ng-hide="hideinfo">
+                    <li class="list-group-item list-group-item-success" data-ng-repeat="output in search_output" data-ng-click="choose_textbox(output)">{{output}}</li>
+                  </ul>
+                  <div class="input-group-btn" >
+                      <div class="btn-group" role="group" style="position:unset">
+                          <div class="dropdown dropdown-lg">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                              <ul class="dropdown-menu" role="menu">
+                                <!-- removeSearch to clear the text in input when change the categoricates -->
+                                <li><a data-ng-click="option='0';removeSearch()">All</a></li>
+                                <li><a data-ng-click="option='1';removeSearch()">Tags</a></li>
+                                <li><a data-ng-click="option='2';removeSearch()">Key Words</a></li>
+                                <li><a data-ng-click="option='3';removeSearch()">Caption</a></li>
+                            </ul>
+                          </div>
+                        <!-- searchButton is started when search button is clicked -->
+                          <button type="button" class="btn btn-primary" data-ng-click="searchButton()"><span class="glyphicon glyphicon-search" aria-hidden="true" ></span></button>
+
+                      </div>
+                  </div>
+              </div>
+     </div>
+  </div>
+
+  <!-- Images display-->
+  <div class="row gallery-row" >
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" data-ng-repeat="url in outputImages|filter:searchVar">
+      <div class="thumbnail">
+        <div>
+            User: <a>{{url.user}}</a>
+          </div>
+        <a data-ng-click="storeID(url)" data-toggle="modal" data-target="#myModal"  >
+
+          <img data-ng-src="{{url.imageURL}}" class="img-responsive img-thumbnail" style="width:90%"/>
+
+        </a>
+        <!-- This to diaplay information of the images also like and comment functions-->
+        <div class="caption text-center">
+            <p>{{url.imageCaption}}, #{{url.imageTags}}, &{{url.imageKey}}</p>
+            <p data-ng-show="myMessage!=undefined" >Your comment {{myComment}}</p>
+            <a data-ng-show="myMessage!=undefined" data-ng-click="storeID(url);moreComment=true" data-toggle="modal" data-target="#myModal" >More comment...</a>
+        </div>
+
+          <div class="col-md-12  text-center" data-ng-show="status">
+            <a href="" class="text-center" title="If you like this, vote it up!" data-ng-click="doVote(url)">
+              <i data-ng-class="(ply.userVotes[currUser]==1) ? 'glyphicon glyphicon-heart' : 'glyphicon glyphicon-heart-empty'"></i>
+              </a>
+              <span class="slide-up" >{{url.votes}}</span>
+
+        </div>
+        <div class="col-md-12  text-center" data-ng-show="status">
+
+              <input type="text" data-ng-model="comment" data-ng-required="true"/>
+              <button data-ng-click="postComment(url,comment)" class="btn btn-primary">Comment</button>
+              <br>
+            <span class="alert-message">{{message}}</span>
+          </div>
+
+        <br><br><br><br>
+
+
+
+      </div>
+
+
+    <!--Model pop for individual images-->
+          <div class="modal fade" id="myModal" role="dialog" data-ng-repeat="urlx in urls|filter:urlx.imageURL=ID ">
+            <div class="modal-dialog modal-lg">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <button type="button" class="close" data-dismiss="modal">x</button>
+                  <h4 class="modal-title">{{urlx.user}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div data-ng-hide="moreComment">
+                      <img data-ng-src="{{urlx.imageURL}}" class="img-responsive img-thumbnail" style="width:900%"/>
+                      <div class="col-md-10 col-md-offset-2 bodyModel">
+                      <p>Caption: <span data-ng-show="!edit">{{urlx.imageCaption}}</span><input type="text"  data-ng-show="edit" data-ng-model="newData.updateCaption"/> </p>
+                       <p>Tag: <span data-ng-show="!edit">{{urlx.imageTags}}</span><input type="text" data-ng-show="edit"  data-ng-model="newData.updateTags"/> </p>
+                      <p>Key words: <span data-ng-show="!edit">{{urlx.imageKey}}</span><input type="text" data-ng-show="edit"  data-ng-model="newData.updateKey"/>  </p>
+                        <p>Date: <span data-ng-show="!edit">{{urlx.imageDate}}</span><input type="date" data-ng-show="edit"  data-ng-model="newData.updateDate"/>  </p>
+                      </div>
+                  </div>
+                  <div data-ng-hide="!moreComment" data-ng-show="moreComment" data-ng-repeat="commentx in urlx.comments">
+                    <p>{{commentx}}</p>
+
+
+                  </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-ng-hide="moreComment" data-ng-click="moreComment=true">Comments</button>
+
+                  <button type="button" class="btn btn-primary" data-ng-show="moreComment" data-ng-click="moreComment=false">Details</button>
+
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+    </div>
+
+
+
+<!-- Load more button -->
+</div>
+  <div class="row">
+
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary" href="#" type="button" data-ng-class="nextPageDisabledClass()" data-ng-click="loadMore()">Load More</button>
+    </div>
+
+
+  </div>
+
+  </div>
+

@@ -1,0 +1,100 @@
+<div class="cointaner-fuild uploadBar" data-ng-controller="GalleryCtrl" data-ng-init="pageOption='owner'">
+  <!-- Add button -->
+  <div class="addButton">
+    <a href="#!/upload" type="button" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-plus"></i></a>
+  </div>
+
+  <!-- Page title -->
+  <div class="text-center">
+    <h2>Photo Gallery </h2>
+  </div>
+
+  <!-- SearchBar -->
+  <div class="row" style="margin: 20px 0px 40px 0px">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10  col-sm-offset-1 col-xs-offset-1">
+
+        <div class="input-group " id="adv-search">
+                  <input type="text" data-ng-show="option=='0'" class="form-control" placeholder="Search for images with caption, name, tags and keyword" data-ng-keyup="total(search)" data-ng-model="search"/>
+                  <input type="text" data-ng-show="option=='1'" class="form-control" placeholder="Search for images by Tags" data-ng-keyup="total(searchTags)" data-ng-model="searchTags"/>
+                  <input type="text" data-ng-show="option=='2'" class="form-control" placeholder="Search for images by Key Words" data-ng-keyup="total(searchKey)" data-ng-model="searchKey"/>
+                  <input type="text" data-ng-show="option=='3'" class="form-control" placeholder="Search for images by Caption" data-ng-keyup="total(searchCaption)" data-ng-model="searchCaption" />
+                  <ul class="list-group" data-ng-hide="hideinfo">
+                    <li class="list-group-item list-group-item-success" data-ng-repeat="output in search_output" data-ng-click="choose_textbox(output)">{{output}}</li>
+                  </ul>
+                  <div class="input-group-btn" >
+                      <div class="btn-group" role="group" style="position:unset">
+                          <div class="dropdown dropdown-lg">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a data-ng-click="option='0';removeSearch()">All</a></li>
+                                <li><a data-ng-click="option='1';removeSearch()">Tags</a></li>
+                                <li><a data-ng-click="option='2';removeSearch()">Key Words</a></li>
+                                <li><a data-ng-click="option='3';removeSearch()">Caption</a></li>
+                            </ul>
+                          </div>
+                          <button type="button" class="btn btn-primary" data-ng-click="searchButton()"><span class="glyphicon glyphicon-search" aria-hidden="true" ></span></button>
+
+                      </div>
+                  </div>
+              </div>
+     </div>
+  </div>
+
+  <!-- Images display-->
+  <div class="row gallery-row" >
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" data-ng-repeat="url in outputImages|filter:searchVar| orderBy:orderByDate">
+        <a data-ng-click="storeID(url)" class="thumbnail" data-toggle="modal" data-target="#myModal"  >
+          <img data-ng-src="{{url.imageURL}}" class="img-responsive img-thumbnail" style="width:90%"/>
+          <div class="caption text-center">
+            <p>{{url.imageCaption}}</p>
+
+          </div>
+        </a>
+
+
+    <!--Model-->
+          <div class="modal fade" id="myModal" role="dialog" data-ng-repeat="urlx in urls|filter:urlx.imageURL=ID ">
+            <div class="modal-dialog modal-lg">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">x</button>
+                  <h4 class="modal-title">{{urlx.caption}}</h4>
+                </div>
+                <div class="modal-body">
+                    <img data-ng-src="{{urlx.imageURL}}" class="img-responsive img-thumbnail" style="width:900%"/>
+                    <div class="col-md-10 col-md-offset-2 bodyModel">
+                    <p>Caption: <span data-ng-show="!edit">{{urlx.imageCaption}}</span><input type="text"  data-ng-show="edit" data-ng-model="newData.updateCaption"/> </p>
+                     <p>Tag: <span data-ng-show="!edit">{{urlx.imageTags}}</span><input type="text" data-ng-show="edit"  data-ng-model="newData.updateTags"/> </p>
+                    <p>Key words: <span data-ng-show="!edit">{{urlx.imageKey}}</span><input type="text" data-ng-show="edit"  data-ng-model="newData.updateKey"/>  </p>
+                      <p>Date: <span data-ng-show="!edit">{{urlx.imageDate}}</span><input type="date" data-ng-show="edit"  data-ng-model="newData.updateDate"/>  </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" data-ng-show="edit" data-ng-click="edit=false; updateFile(urlx)">Save</button>
+                  <button class="btn btn-primary" data-ng-show="!edit" data-ng-click="edit=true">Edit</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="deleteFile(urlx)">Delete</button>
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+    </div>
+
+
+
+<!-- Load more button -->
+</div>
+  <div class="row">
+
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary" href="#" type="button" data-ng-class="nextPageDisabledClass()" data-ng-click="loadMore()">Load More</button>
+    </div>
+
+
+  </div>
+
+  </div>
+

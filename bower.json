@@ -1,0 +1,23 @@
+{
+  "name": "Victor",
+  "authors": [
+    "hiendaica11145 <quanphuoc89@gmail.com>"
+  ],
+  "description": "no",
+  "main": "no",
+  "license": "MIT",
+  "homepage": "http://hiendaica11145.com",
+  "dependencies": {
+    "angular": "angularjs#^1.6.10",
+    "boostrap": "^4.1.0",
+    "font-awesome": "^5.0.10",
+    "angular-route": "^1.6.10"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
